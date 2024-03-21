@@ -1,7 +1,6 @@
 import { Header } from "./components/header";
 import { MovieTable } from "./components/movieTable";
-import { useSelector } from "react-redux";
-import { selectSelectedMovie } from "./features/selectedMovieReducer";
+import { SelectedMovieForm } from "./components/selectedMovieForm";
 
 // TODO: use https://giddy-beret-cod.cyclic.app/movieCompanies
 const mockMovieCompanyData: any = [{ id: "1", name: "Test Productions" }];
@@ -27,31 +26,13 @@ const mockMovieData: any = [
 ];
 
 export const App = () => {
-    const selectedMovie = useSelector(selectSelectedMovie);
-
     return (
         <div>
             <Header></Header>
             <br />
             <MovieTable></MovieTable>
             <br />
-            <div>
-                {selectedMovie
-                    ? (selectedMovie.movie?.title as any)
-                        ? (("You have selected " +
-                              selectedMovie.movie?.title) as any)
-                        : "No Movie Title"
-                    : "No Movie Seelcted"}
-                {selectedMovie && <p>Please leave a review below</p>}
-                {selectedMovie && (
-                    <form onSubmit={() => {}}>
-                        <label>
-                            Review:
-                            <input type="text" />
-                        </label>
-                    </form>
-                )}
-            </div>
+            <SelectedMovieForm></SelectedMovieForm>
         </div>
     );
 };
