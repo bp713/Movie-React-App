@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
-import { MovieState } from "./movieReducer";
+import { MovieType } from "./movieReducer";
 
-interface selectedMovieState {
-    movie: MovieState | null;
+interface selectedMovieType {
+    movie: MovieType | null;
 }
 
 const initialState = {
     movie: null,
-} satisfies selectedMovieState as selectedMovieState;
+} satisfies selectedMovieType as selectedMovieType;
 
 export const selectedMovieSlice = createSlice({
     name: "selectedMovie",
     initialState,
     reducers: {
-        changeSelectedMovie: (state, action: PayloadAction<MovieState>) => {
+        changeSelectedMovie: (state, action: PayloadAction<MovieType>) => {
             state.movie = action.payload;
         },
     },

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
-export type MovieState = {
+export type MovieType = {
     id: string;
     title: string;
     reviews: number[];
@@ -10,7 +10,7 @@ export type MovieState = {
     releaseYear: number;
 };
 
-const initialState: MovieState[] = [
+const initialState: MovieType[] = [
     {
         id: "1",
         reviews: [6, 8, 3, 9, 8, 7, 8],
@@ -33,7 +33,7 @@ export const moviesSlice = createSlice({
     name: "movies",
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<MovieState>) => {
+        add: (state, action: PayloadAction<MovieType>) => {
             state.push(action.payload);
         },
     },

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
-interface MovieCompanyState {
+export type MovieCompanyType = {
     id: string;
     name: string;
-}
+};
 
-const initialState: MovieCompanyState[] = [
+const initialState: MovieCompanyType[] = [
     { id: "1", name: "Test Productions" },
 ];
 
@@ -14,7 +14,7 @@ export const movieCompanysSlice = createSlice({
     name: "movieCompanys",
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<MovieCompanyState>) => {
+        add: (state, action: PayloadAction<MovieCompanyType>) => {
             state.push(action.payload);
         },
     },
