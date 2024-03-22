@@ -8,7 +8,7 @@ import {
 import {
     changeSelectedMovie,
     selectSelectedMovie,
-} from "../features/selectedMovieReducer";
+} from "../features/movieReducer";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -80,8 +80,8 @@ export const MovieTable = () => {
                                     border: 0,
                                 },
                             }}
-                            aria-checked={selectedRow.movie?.id === row.id}
-                            selected={selectedRow.movie?.id === row.id}
+                            aria-checked={selectedRow?.id === row.id}
+                            selected={selectedRow?.id === row.id}
                             onClick={() =>
                                 dispatch(changeSelectedMovie(row.movie))
                             }

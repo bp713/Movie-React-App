@@ -18,6 +18,7 @@ export type MovieCompanyType = {
 export type MovieReducerType = {
     moviesList: MovieType[];
     movieCompaniesList: MovieCompanyType[];
+    selectedMovie: MovieType | null;
     isLoading: boolean;
     hasError: boolean;
     errorMessage: string | undefined;
@@ -38,25 +39,9 @@ export const loadMovies = createAsyncThunk("movies/getAllMovies", async () => {
 });
 
 const initialState: MovieReducerType = {
-    moviesList: [
-        {
-            id: "1",
-            reviews: [6, 8, 3, 9, 8, 7, 8],
-            title: "A Testing Film",
-            filmCompanyId: "1",
-            cost: 534,
-            releaseYear: 2005,
-        },
-        {
-            id: "2",
-            reviews: [5, 7, 3, 4, 1, 6, 3],
-            title: "Mock Test Film",
-            filmCompanyId: "1",
-            cost: 6234,
-            releaseYear: 2006,
-        },
-    ],
-    movieCompaniesList: [{ id: "1", name: "Test Productions" }],
+    moviesList: [],
+    movieCompaniesList: [],
+    selectedMovie: null,
     isLoading: false,
     hasError: false,
     errorMessage: undefined,
@@ -66,8 +51,8 @@ export const moviesSlice = createSlice({
     name: "movies",
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<MovieType>) => {
-            state.moviesList.push(action.payload);
+        changeSelectedMovie: (state, action: PayloadAction<MovieType>) => {
+            state.selectedMovie = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -91,7 +76,7 @@ export const moviesSlice = createSlice({
     },
 });
 
-export const { add } = moviesSlice.actions;
+export const { changeSelectedMovie } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
 
@@ -114,4 +99,7 @@ export const selectIsLoading = (state: RootState) => {
 };
 export const selectMovieCompanies = (state: RootState) => {
     return state.movies.movieCompaniesList;
+};
+export const selectSelectedMovie = (state: RootState) => {
+    return state.movies.selectedMovie;
 };
