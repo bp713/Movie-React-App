@@ -24,8 +24,8 @@ export type MovieReducerType = {
     errorMessage: string | undefined;
     submitReviewIsLoading: boolean;
     hasReviewError: boolean;
-    reviewErrorMessage: string | undefined;
-    reviewSuccessMessage: string | undefined;
+    submitReviewErrorMessage: string | undefined;
+    submitReviewSuccessMessage: string | undefined;
 };
 
 export const loadMovies = createAsyncThunk("movies/getAllMovies", async () => {
@@ -66,9 +66,9 @@ const initialState: MovieReducerType = {
     hasError: false,
     errorMessage: undefined,
     hasReviewError: false,
-    reviewErrorMessage: undefined,
+    submitReviewErrorMessage: undefined,
     submitReviewIsLoading: false,
-    reviewSuccessMessage: undefined,
+    submitReviewSuccessMessage: undefined,
 };
 
 export const moviesSlice = createSlice({
@@ -102,19 +102,19 @@ export const moviesSlice = createSlice({
         builder.addCase(submitReview.pending, (state, action) => {
             state.submitReviewIsLoading = true;
             state.hasReviewError = false;
-            state.reviewErrorMessage = "";
+            state.submitReviewErrorMessage = "";
         });
         builder.addCase(submitReview.fulfilled, (state, action) => {
             state.submitReviewIsLoading = false;
             state.hasReviewError = false;
-            state.reviewErrorMessage = "";
-            state.reviewSuccessMessage = action.payload.message;
+            state.submitReviewErrorMessage = "";
+            state.submitReviewSuccessMessage = action.payload.message;
         });
         builder.addCase(submitReview.rejected, (state, action) => {
             state.submitReviewIsLoading = false;
             state.hasReviewError = true;
-            state.reviewErrorMessage = action.error.message;
-            state.reviewSuccessMessage = undefined;
+            state.submitReviewErrorMessage = action.error.message;
+            state.submitReviewSuccessMessage = undefined;
         });
     },
 });
@@ -145,4 +145,16 @@ export const selectMovieCompanies = (state: RootState) => {
 };
 export const selectSelectedMovie = (state: RootState) => {
     return state.movies.selectedMovie;
+};
+export const selectHasReviewError = (state: RootState) => {
+    return state.movies.hasReviewError;
+};
+export const selectSubmitReviewErrorMessage = (state: RootState) => {
+    return state.movies.submitReviewErrorMessage;
+};
+export const selectSubmitReviewIsLoading = (state: RootState) => {
+    return state.movies.submitReviewIsLoading;
+};
+export const selectSubmitReviewSuccessMessage = (state: RootState) => {
+    return state.movies.submitReviewSuccessMessage;
 };
