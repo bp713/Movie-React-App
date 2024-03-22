@@ -22,6 +22,10 @@ export type MovieReducerType = {
     isLoading: boolean;
     hasError: boolean;
     errorMessage: string | undefined;
+    submitReviewIsLoading: boolean;
+    hasReviewError: boolean;
+    reviewErrorMessage: string | undefined;
+    reviewSuccessMessage: string | undefined;
 };
 
 export const loadMovies = createAsyncThunk("movies/getAllMovies", async () => {
@@ -34,9 +38,25 @@ export const loadMovies = createAsyncThunk("movies/getAllMovies", async () => {
         const movieCompanies = await movieCompanieResponse.json();
         return { movies, movieCompanies };
     } catch (error) {
-        throw new Error("Error Fetching Movies");
+        throw new Error("Error Fetching Movies:" + error);
     }
 });
+
+export const submitReview = createAsyncThunk(
+    "movies/submitReview",
+    async (review: string) => {
+        try {
+            const postReviewResponse = await fetch(
+                "http://localhost:3000/submitReview",
+                { method: "POST", body: JSON.stringify({ review }) },
+            );
+            const response = await postReviewResponse.json();
+            return response;
+        } catch (error) {
+            throw new Error("Error Submitting Review");
+        }
+    },
+);
 
 const initialState: MovieReducerType = {
     moviesList: [],
@@ -45,6 +65,10 @@ const initialState: MovieReducerType = {
     isLoading: false,
     hasError: false,
     errorMessage: undefined,
+    hasReviewError: false,
+    reviewErrorMessage: undefined,
+    submitReviewIsLoading: false,
+    reviewSuccessMessage: undefined,
 };
 
 export const moviesSlice = createSlice({
@@ -59,10 +83,12 @@ export const moviesSlice = createSlice({
         builder.addCase(loadMovies.pending, (state, action) => {
             state.isLoading = true;
             state.hasError = false;
+            state.errorMessage = "";
         });
         builder.addCase(loadMovies.fulfilled, (state, action) => {
             state.isLoading = false;
             state.hasError = false;
+            state.errorMessage = "";
             state.moviesList = action.payload.movies;
             state.movieCompaniesList = action.payload.movieCompanies;
         });
@@ -72,6 +98,23 @@ export const moviesSlice = createSlice({
             state.errorMessage = action.error.message;
             state.moviesList = [];
             state.movieCompaniesList = [];
+        });
+        builder.addCase(submitReview.pending, (state, action) => {
+            state.submitReviewIsLoading = true;
+            state.hasReviewError = false;
+            state.reviewErrorMessage = "";
+        });
+        builder.addCase(submitReview.fulfilled, (state, action) => {
+            state.submitReviewIsLoading = false;
+            state.hasReviewError = false;
+            state.reviewErrorMessage = "";
+            state.reviewSuccessMessage = action.payload.message;
+        });
+        builder.addCase(submitReview.rejected, (state, action) => {
+            state.submitReviewIsLoading = false;
+            state.hasReviewError = true;
+            state.reviewErrorMessage = action.error.message;
+            state.reviewSuccessMessage = undefined;
         });
     },
 });
