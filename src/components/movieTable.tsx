@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectMovies, MovieType } from "../features/movieReducer";
 import {
-    selectMovieCompanys,
+    selectMovies,
+    MovieType,
+    selectMovieCompanies,
     MovieCompanyType,
-} from "../features/movieCompanyReducer";
+} from "../features/movieReducer";
 import {
     changeSelectedMovie,
     selectSelectedMovie,
@@ -54,7 +55,7 @@ function createTableData(
 
 export const MovieTable = () => {
     const movies = useSelector(selectMovies);
-    const movieCompanies = useSelector(selectMovieCompanys);
+    const movieCompanies = useSelector(selectMovieCompanies);
     const selectedRow = useSelector(selectSelectedMovie);
     const dispatch = useDispatch();
 
