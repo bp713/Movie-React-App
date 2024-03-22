@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Header } from "../components/header";
 import { MovieTable } from "../components/movieTable";
-import { SelectedMovieForm } from "../components/selectedMovieForm";
+import { SubmitReview } from "../components/submitReview";
 import {
     selectIsLoading,
     selectError,
@@ -36,7 +36,7 @@ export const MovieApp = () => {
             <br />
             <MovieTable></MovieTable>
             <br />
-            <SelectedMovieForm></SelectedMovieForm>
+            <SubmitReview></SubmitReview>
         </div>
     );
 };
