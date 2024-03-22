@@ -23,7 +23,7 @@ export type MovieReducerType = {
     hasError: boolean;
     errorMessage: string | undefined;
     submitReviewIsLoading: boolean;
-    hasReviewError: boolean;
+    submitReviewHasError: boolean;
     submitReviewErrorMessage: string | undefined;
     submitReviewSuccessMessage: string | undefined;
 };
@@ -65,7 +65,7 @@ const initialState: MovieReducerType = {
     isLoading: false,
     hasError: false,
     errorMessage: undefined,
-    hasReviewError: false,
+    submitReviewHasError: false,
     submitReviewErrorMessage: undefined,
     submitReviewIsLoading: false,
     submitReviewSuccessMessage: undefined,
@@ -101,18 +101,18 @@ export const moviesSlice = createSlice({
         });
         builder.addCase(submitReview.pending, (state, action) => {
             state.submitReviewIsLoading = true;
-            state.hasReviewError = false;
+            state.submitReviewHasError = false;
             state.submitReviewErrorMessage = "";
         });
         builder.addCase(submitReview.fulfilled, (state, action) => {
             state.submitReviewIsLoading = false;
-            state.hasReviewError = false;
+            state.submitReviewHasError = false;
             state.submitReviewErrorMessage = "";
             state.submitReviewSuccessMessage = action.payload.message;
         });
         builder.addCase(submitReview.rejected, (state, action) => {
             state.submitReviewIsLoading = false;
-            state.hasReviewError = true;
+            state.submitReviewHasError = true;
             state.submitReviewErrorMessage = action.error.message;
             state.submitReviewSuccessMessage = undefined;
         });
@@ -146,8 +146,8 @@ export const selectMovieCompanies = (state: RootState) => {
 export const selectSelectedMovie = (state: RootState) => {
     return state.movies.selectedMovie;
 };
-export const selectHasReviewError = (state: RootState) => {
-    return state.movies.hasReviewError;
+export const selectSubmitReviewHasError = (state: RootState) => {
+    return state.movies.submitReviewHasError;
 };
 export const selectSubmitReviewErrorMessage = (state: RootState) => {
     return state.movies.submitReviewErrorMessage;

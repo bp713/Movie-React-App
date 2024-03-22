@@ -1,5 +1,7 @@
 import { useFormik, FormikErrors } from "formik";
 import { Button, TextField } from "@mui/material";
+import { useAppDispatch } from "../app/hooks";
+import { submitReview } from "../features/movieReducer";
 
 interface FormValues {
     review: string;
@@ -18,13 +20,14 @@ const validateForm = (values: FormValues) => {
 };
 
 export const SubmitReviewForm = () => {
+    const dispatch = useAppDispatch();
     const formik = useFormik({
         initialValues: {
             review: "",
         },
         validate: validateForm,
         onSubmit: (values) => {
-            console.log(values);
+            dispatch(submitReview(values.review));
         },
     });
 
