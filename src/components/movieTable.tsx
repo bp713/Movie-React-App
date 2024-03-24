@@ -97,7 +97,7 @@ export const MovieTable = () => {
 
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="movies table">
+            <Table sx={{ minWidth: 400 }} aria-label="movies table">
                 <TableHead>
                     <TableRow>
                         <TableCell>Title</TableCell>
