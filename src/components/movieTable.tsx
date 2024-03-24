@@ -18,7 +18,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { TableSortLabel } from "@mui/material";
+import TableSortLabel from "@mui/material/TableSortLabel";
 
 interface tableRowData {
     id: string;

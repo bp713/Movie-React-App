@@ -4,14 +4,14 @@ import { MovieTable } from "../components/movieTable";
 import { SubmitReview } from "../components/submitReview";
 import {
     selectIsLoading,
-    selectError,
-    selectErrorMessage,
+    selectHasLoadingError,
+    selectLoadingErrorMessage,
 } from "../features/movieReducer";
 
 export const MovieApp = () => {
     const isLoading = useSelector(selectIsLoading);
-    const hasError = useSelector(selectError);
-    const errorMessage = useSelector(selectErrorMessage);
+    const hasError = useSelector(selectHasLoadingError);
+    const errorMessage = useSelector(selectLoadingErrorMessage);
 
     if (hasError) {
         return (

@@ -20,10 +20,8 @@ export type MovieReducerType = {
     movieCompaniesList: MovieCompanyType[];
     selectedMovie: MovieType | null;
     isLoading: boolean;
-    hasError: boolean;
-    errorMessage: string | undefined;
+    loadingErrorMessage: string | undefined;
     submitReviewIsLoading: boolean;
-    submitReviewHasError: boolean;
     submitReviewErrorMessage: string | undefined;
     submitReviewSuccessMessage: string | undefined;
 };
@@ -63,9 +61,7 @@ const initialState: MovieReducerType = {
     movieCompaniesList: [],
     selectedMovie: null,
     isLoading: false,
-    hasError: false,
-    errorMessage: undefined,
-    submitReviewHasError: false,
+    loadingErrorMessage: undefined,
     submitReviewErrorMessage: undefined,
     submitReviewIsLoading: false,
     submitReviewSuccessMessage: undefined,
@@ -82,37 +78,31 @@ export const moviesSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(loadMovies.pending, (state, action) => {
             state.isLoading = true;
-            state.hasError = false;
-            state.errorMessage = "";
+            state.loadingErrorMessage = "";
         });
         builder.addCase(loadMovies.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.hasError = false;
-            state.errorMessage = "";
+            state.loadingErrorMessage = "";
             state.moviesList = action.payload.movies;
             state.movieCompaniesList = action.payload.movieCompanies;
         });
         builder.addCase(loadMovies.rejected, (state, action) => {
             state.isLoading = false;
-            state.hasError = true;
-            state.errorMessage = action.error.message;
+            state.loadingErrorMessage = action.error.message;
             state.moviesList = [];
             state.movieCompaniesList = [];
         });
         builder.addCase(submitReview.pending, (state, action) => {
             state.submitReviewIsLoading = true;
-            state.submitReviewHasError = false;
             state.submitReviewErrorMessage = "";
         });
         builder.addCase(submitReview.fulfilled, (state, action) => {
             state.submitReviewIsLoading = false;
-            state.submitReviewHasError = false;
             state.submitReviewErrorMessage = "";
             state.submitReviewSuccessMessage = action.payload.message;
         });
         builder.addCase(submitReview.rejected, (state, action) => {
             state.submitReviewIsLoading = false;
-            state.submitReviewHasError = true;
             state.submitReviewErrorMessage = action.error.message;
             state.submitReviewSuccessMessage = undefined;
         });
@@ -131,11 +121,11 @@ export const selectMovies = (state: RootState) => {
     return state.movies.moviesList;
 };
 
-export const selectError = (state: RootState) => {
-    return state.movies.hasError;
+export const selectHasLoadingError = (state: RootState) => {
+    return !!state.movies.loadingErrorMessage;
 };
-export const selectErrorMessage = (state: RootState) => {
-    return state.movies.errorMessage;
+export const selectLoadingErrorMessage = (state: RootState) => {
+    return state.movies.loadingErrorMessage;
 };
 export const selectIsLoading = (state: RootState) => {
     return state.movies.isLoading;
@@ -147,7 +137,7 @@ export const selectSelectedMovie = (state: RootState) => {
     return state.movies.selectedMovie;
 };
 export const selectSubmitReviewHasError = (state: RootState) => {
-    return state.movies.submitReviewHasError;
+    return !!state.movies.submitReviewErrorMessage;
 };
 export const selectSubmitReviewErrorMessage = (state: RootState) => {
     return state.movies.submitReviewErrorMessage;

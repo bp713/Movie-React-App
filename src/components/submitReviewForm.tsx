@@ -1,44 +1,26 @@
-import { useFormik, FormikErrors } from "formik";
-import { Button, TextField } from "@mui/material";
-import { useAppDispatch } from "../app/hooks";
-import { submitReview } from "../features/movieReducer";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { FormikProps } from "formik";
 
-interface FormValues {
-    review: string;
-}
-
-const validateForm = (values: FormValues) => {
-    const errors: FormikErrors<FormValues> = {};
-
-    if (!values.review) {
-        errors.review = "Review Required";
-    } else if (values.review.length > 100) {
-        errors.review = "Review too long.";
-    }
-
-    return errors;
-};
-
-export const SubmitReviewForm = () => {
-    const dispatch = useAppDispatch();
-    const formik = useFormik({
-        initialValues: {
-            review: "",
-        },
-        validate: validateForm,
-        onSubmit: (values) => {
-            dispatch(submitReview(values.review));
-        },
-    });
-
+export const SubmitReviewForm = ({
+    formik,
+    selectedMovieTitle,
+}: {
+    formik: FormikProps<{ review: string }>;
+    selectedMovieTitle: String | undefined;
+}) => {
     return (
         <div>
+            {selectedMovieTitle
+                ? "You have selected " + selectedMovieTitle
+                : "No Movie Title"}
+            {<p>Please leave a review below</p>}
             <form onSubmit={formik.handleSubmit}>
                 <TextField
                     fullWidth
                     id="review"
                     name="review"
-                    label="reivew"
+                    label="review"
                     value={formik.values.review}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
