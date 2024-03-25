@@ -8,7 +8,6 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
 import { FormikProps } from "formik";
-import { MovieType } from "../features/movieReducer";
 
 export const SubmitReviewModalForm = ({
     formik,
