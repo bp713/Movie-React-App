@@ -6,7 +6,7 @@ The application can be run by running.
 
 -   npm install
 -   npm run build
--   nom preview
+-   npm preview
 
 I was unable to dockerize the application due to not being able to install it on my laptop (INFO: Your CPU does not support KVM extensions
 KVM acceleration can NOT be used
