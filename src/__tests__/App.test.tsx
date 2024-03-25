@@ -42,7 +42,7 @@ const mockServer = (options?: MockServerOptions) => {
     const submitReviewError = options?.submitReviewReturnError || false;
 
     global.fetch = jest.fn((request) => {
-        if (request == "http://localhost:3000/movies") {
+        if (request == "http://localhost:4321/movies") {
             if (getMoviesReturnError) {
                 return Promise.reject("Unable To return movies");
             }
@@ -50,7 +50,7 @@ const mockServer = (options?: MockServerOptions) => {
                 json: () => Promise.resolve(moviesList),
             });
         }
-        if (request == "http://localhost:3000/movieCompanies") {
+        if (request == "http://localhost:4321/movieCompanies") {
             if (getMovieCompaniesReturnError) {
                 return Promise.reject("Unable To return movie companies");
             }
@@ -59,7 +59,7 @@ const mockServer = (options?: MockServerOptions) => {
             });
         }
 
-        if (request == "http://localhost:3000/submitReview") {
+        if (request == "http://localhost:4321/submitReview") {
             if (submitReviewError) {
                 return Promise.reject("Unable To Submit Review");
             }
@@ -382,7 +382,7 @@ describe("App", () => {
                                 // Then
                                 expect(global.fetch).toHaveBeenCalledTimes(3);
                                 expect(global.fetch).toHaveBeenCalledWith(
-                                    "http://localhost:3000/submitReview",
+                                    "http://localhost:4321/submitReview",
                                     {
                                         body: '{"review":"A Review"}',
                                         method: "POST",
@@ -420,7 +420,7 @@ describe("App", () => {
                                 // Then
                                 expect(global.fetch).toHaveBeenCalledTimes(3);
                                 expect(global.fetch).toHaveBeenCalledWith(
-                                    "http://localhost:3000/submitReview",
+                                    "http://localhost:4321/submitReview",
                                     {
                                         body: '{"review":"A Review"}',
                                         method: "POST",
@@ -571,7 +571,7 @@ describe("App", () => {
                                 // Then
                                 expect(global.fetch).toHaveBeenCalledTimes(3);
                                 expect(global.fetch).toHaveBeenCalledWith(
-                                    "http://localhost:3000/submitReview",
+                                    "http://localhost:4321/submitReview",
                                     {
                                         body: '{"review":"A Review"}',
                                         method: "POST",
@@ -609,7 +609,7 @@ describe("App", () => {
                                 // Then
                                 expect(global.fetch).toHaveBeenCalledTimes(3);
                                 expect(global.fetch).toHaveBeenCalledWith(
-                                    "http://localhost:3000/submitReview",
+                                    "http://localhost:4321/submitReview",
                                     {
                                         body: '{"review":"A Review"}',
                                         method: "POST",

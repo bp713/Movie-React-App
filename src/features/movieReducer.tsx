@@ -28,11 +28,11 @@ export type MovieReducerType = {
 
 export const loadMovies = createAsyncThunk("movies/getAllMovies", async () => {
     try {
-        const moviesResponse = await fetch("http://localhost:3000/movies");
+        const moviesResponse = await fetch("http://localhost:4321/movies");
         debugger;
         const movies = await moviesResponse.json();
         const movieCompanieResponse = await fetch(
-            "http://localhost:3000/movieCompanies",
+            "http://localhost:4321/movieCompanies",
         );
         const movieCompanies = await movieCompanieResponse.json();
         return { movies, movieCompanies };
@@ -46,7 +46,7 @@ export const submitReview = createAsyncThunk(
     async (review: string) => {
         try {
             const postReviewResponse = await fetch(
-                "http://localhost:3000/submitReview",
+                "http://localhost:4321/submitReview",
                 { method: "POST", body: JSON.stringify({ review }) },
             );
             const response = await postReviewResponse.json();
