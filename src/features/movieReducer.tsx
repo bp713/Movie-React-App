@@ -29,6 +29,7 @@ export type MovieReducerType = {
 export const loadMovies = createAsyncThunk("movies/getAllMovies", async () => {
     try {
         const moviesResponse = await fetch("http://localhost:3000/movies");
+        debugger;
         const movies = await moviesResponse.json();
         const movieCompanieResponse = await fetch(
             "http://localhost:3000/movieCompanies",

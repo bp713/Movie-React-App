@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { Header } from "../components/header";
 import { MovieTable } from "../components/movieTable";

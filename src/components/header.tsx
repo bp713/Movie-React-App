@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import { selectNumberOfMovies } from "../features/movieReducer";
 import { loadMovies } from "../features/movieReducer";

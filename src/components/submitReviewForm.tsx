@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { FormikProps } from "formik";
@@ -15,7 +16,7 @@ export const SubmitReviewForm = ({
                 ? "You have selected " + selectedMovieTitle
                 : "No Movie Title"}
             {<p>Please leave a review below</p>}
-            <form onSubmit={formik.handleSubmit}>
+            <form role="form" onSubmit={formik.handleSubmit}>
                 <TextField
                     fullWidth
                     id="review"

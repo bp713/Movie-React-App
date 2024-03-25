@@ -1,5 +1,5 @@
+import React from "react";
 import { useAppDispatch } from "./app/hooks";
-
 import { MovieApp } from "./components/movieApp";
 import { loadMovies } from "./features/movieReducer";
 import { useEffect } from "react";
