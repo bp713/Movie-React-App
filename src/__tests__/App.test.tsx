@@ -433,6 +433,28 @@ describe("App", () => {
                         });
                     });
                 });
+
+                describe("when the window size changes to small", () => {
+                    test("should change to show a modal", async () => {
+                        // Given
+                        const user = userEvent.setup();
+                        mockServer();
+                        await waitFor(async () => {
+                            renderWithProviders(<App />);
+                        });
+                        const rows = screen.getAllByRole("row");
+                        await user.click(rows[1]);
+
+                        // When
+                        await waitFor(async () => {
+                            global.innerWidth = 500;
+                            global.dispatchEvent(new Event("resize"));
+                        });
+
+                        const modal = screen.getByRole("dialog");
+                        expect(modal).toBeInTheDocument();
+                    });
+                });
             });
 
             describe("when window size is small", () => {
@@ -446,7 +468,6 @@ describe("App", () => {
                     await waitFor(async () => {
                         renderWithProviders(<App />);
                     });
-                    await new Promise(process.nextTick);
 
                     const rows = screen.getAllByRole("row");
                     await user.click(rows[1]);
@@ -620,6 +641,30 @@ describe("App", () => {
                                 expect(errorMessage).toBeInTheDocument();
                             });
                         });
+                    });
+                });
+
+                describe("when the window size changes to large", () => {
+                    test("should change to show a form", async () => {
+                        // Given
+                        const user = userEvent.setup();
+                        mockServer();
+                        await waitFor(async () => {
+                            renderWithProviders(<App />);
+                        });
+                        const rows = screen.getAllByRole("row");
+                        await user.click(rows[1]);
+
+                        // When
+                        await waitFor(async () => {
+                            global.innerWidth = 1000;
+                            global.dispatchEvent(new Event("resize"));
+                        });
+
+                        const modal = screen.queryByRole("dialog");
+                        expect(modal).not.toBeInTheDocument();
+                        const form = screen.getByRole("form");
+                        expect(form).toBeInTheDocument();
                     });
                 });
             });
