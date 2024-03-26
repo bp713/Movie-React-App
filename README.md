@@ -8,9 +8,7 @@ The application can be run by running.
 -   npm run build
 -   npm preview
 
-I was unable to dockerize the application due to not being able to install it on my laptop (INFO: Your CPU does not support KVM extensions
-KVM acceleration can NOT be used
-). All other A/C should have been met.
+Alternativly the docker repo can be found at https://hub.docker.com/r/bpepers/movieapp and can be pulled using 'docker pull bpepers/movieapp'
 
 # Challenge
 
